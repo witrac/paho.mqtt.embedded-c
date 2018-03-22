@@ -310,8 +310,9 @@ int waitfor(Client* c, int packet_type, Timer* timer)
     {
         if (expired(timer)) 
             break; // we timed out
+        rc = cycle(c, timer);
     }
-    while ((rc = cycle(c, timer)) != packet_type);  
+    while (rc != packet_type && rc >= 0);
     
     return rc;
 }
